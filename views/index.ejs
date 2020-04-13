@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  </head>
+  <body>
+
+    <div class="container">
+      <h2 class="text-primary">Filter Records</h2>
+     
+      <% if(success !='') { %>
+        <div class="alert alert-danger" role="alert">
+         <strong> <%= success %></strong>
+        </div>
+        <% } %>
+      <form action="/search/" method="POST" class="border border-primary">
+      <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="inputEmail4" class="badge badge-primary">Name</label>
+            <input type="text" class="form-control" name="fltname" placeholder="Name"  >
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputEmail4" class="badge badge-primary">Email</label>
+            <input type="email" class="form-control" name="fltemail" placeholder="Email">
+          </div>
+          
+          <div class="form-group col-md-2">
+            <label for="inputState" class="badge badge-primary">Employe Type</label>
+            <select id="inputState" class="form-control" name="fltetype" >
+              <option value="Hourly">Hourly</option>
+              <option value="Monthly">Monthly</option>
+            </select>
+          </div>
+         
+          <div class="form-group col-md-2">
+            <label for="inputState">Employe Type</label>
+             <button type="submit" class="btn btn-outline-primary" value="submit">Search</button>
+          </div>
+        </div>
+        </form>
+  
+      </form>
+    </div>
+  <div class="container">
+    <h1 class="text-info"><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">EMAIL</th>
+          <th scope="col">E TYPE</th>
+          <th scope="col">HOURLY Rate</th>
+          <th scope="col">Total HOUR</th>
+          <th scope="col">Total</th>
+          <th scope="col">Action</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <%if(records.length > 0 ) {%>
+        <% records.forEach(function(rows){ %>
+        <tr>
+          <td><%= rows.name %></td>
+          <td><%= rows.email %></td>
+          <td><%= rows.etype %></td>
+          <td><%= rows.hourlyRate %></td>
+          <td><%= rows.totalHour %></td>
+          <td><%= rows.total %></td>
+          <td><a class="btn btn-primary btn-xs" href="/edit/<%= rows._id %>"><i class="fa fa-edit"></i></a>
+            <a class="btn btn-danger btn-xs" href="/delete/<%= rows._id %>"><i class="fa fa-trash"></i></a>
+          </td>
+
+        </tr>
+        <% }) }else{%>
+            <tr>
+              <td class="alert alert-danger">Records Not Found!!</td>
+            </tr>
+          <%}%>
+      </tbody>
+      
+      </table>
+    </div>
+    <div class="container">
+      <h2 class="text-success">Add New Records</h2>
+      <form action="/" method="POST" class="border border-success">
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label for="inputEmail4" class="badge badge-success">Name</label>
+            <input type="text" class="form-control" name="uname" placeholder="Name" required="required">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputEmail4" class="badge badge-success">Email</label>
+            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+          </div>
+      
+          <div class="form-group col-md-2">
+            <label for="inputCity" class="badge badge-success">Hourly Rate</label>
+            <input type="number" class="form-control" name="hrlyrate" required="required" placeholder="number">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputState" class="badge badge-success">Employe Type</label>
+            <select id="inputState" class="form-control" name="etype" required="required">
+              <option value="Hourly">Hourly</option>
+              <option value="Monthly">Monthly</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip" class="badge badge-success">Total Rate</label>
+            <input type="number" class="form-control" name="totalRate" required="required" placeholder="number">
+          </div>
+      
+          <div class="form-group col-md-2">
+            <label for="inputState" >Employe Type</label>
+        <button type="submit" class="btn btn-outline-success" value="submit">Submit</button>
+      </div>
+        </div>
+
+      </form>
+    </div>
+    </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
